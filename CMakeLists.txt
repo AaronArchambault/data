@@ -10,11 +10,11 @@ include(cmake/get_cpm.cmake)
 # check compiler and set the highest c++ standard available
 include(cmake/compiler_check.cmake)
 
-# static analyser to predict code smells
+# static analyser to predict code smells ??
 #include(cmake/static_analyser.cmake)
 
 # add the testing package
-CPMAddPackage("gh:onqtam/doctest#v2.4.11")
+CPMAddPackage("gh:onqtam/doctest#v2.4.12")
 include(${doctest_SOURCE_DIR}/scripts/cmake/doctest.cmake)
 include_directories(${doctest_SOURCE_DIR})
 
