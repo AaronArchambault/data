@@ -10,7 +10,7 @@ include(cmake/get_cpm.cmake)
 # check compiler and set the highest c++ standard available
 include(cmake/compiler_check.cmake)
 
-# static analyser to predict code smells ??
+# static analyser to predict code smells
 #include(cmake/static_analyser.cmake)
 
 # add the testing package

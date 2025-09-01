@@ -5,7 +5,7 @@
 //  You SHOULD modify this file.
 //
 //  Copyright 2019 David Kopec
-//
+// Aaron Archambault
 //  Permission is hereby granted, free of charge, to any person
 //  obtaining a copy of this software and associated documentation files
 //  (the "Software"), to deal in the Software without restriction,
@@ -30,6 +30,7 @@
 #include <algorithm>  // for remove_if()
 #include <iostream>
 #include <sstream>
+#include <vector>
 
 using namespace std;
 
@@ -43,7 +44,7 @@ namespace csi281 {
         remove_if(str.begin(), str.end(), [&](char &c) { return !unwanted.find_first_of(c); }));
   }
 
-  // Read from a input string stream we hit the next comma, or the end
+  // Read from an input string stream we hit the next comma, or the end
   // and try to convert it into the float we seek.
   float readFloatCell(istringstream &iss) {
     string holder;
@@ -52,7 +53,7 @@ namespace csi281 {
     return stof(holder);
   }
 
-  // Read from a input string stream we hit the next comma, or the end
+  // Read from an input string stream, we hit the next comma, or the end
   // and try to convert it into the int we seek.
   int readIntCell(istringstream &iss) {
     string holder;
@@ -75,6 +76,32 @@ namespace csi281 {
   // You'll also want to construct a CityYear from what you have read from the file
   CityYear readLine(ifstream &file) {
     // YOUR CODE HERE
+    string line;
+    getline(file, line);
+    istringstream iss(line);
+
+    //declaring the variables
+    string station = readStringCell(iss);
+    string name = readStringCell(iss);
+    int year = readIntCell(iss);
+    int dx32 = readIntCell(iss);
+    int dx90 = readIntCell(iss);
+    float tavg = readFloatCell(iss);
+    float tmax = readFloatCell(iss);
+    float tmin = readFloatCell(iss);
+
+    //setting values
+    CityYear cityYear;
+    cityYear.year = year;
+    cityYear.numDaysBelow32 = dx32;
+    cityYear.numDaysAbove90 = dx90;
+    cityYear.averageTemperature = tavg;
+    cityYear.averageMax = tmax;
+    cityYear.averageMin = tmin;
+
+    //returning
+    return cityYear;
+
   }
 
   // Read city by looking at the specified lines in the CSV
@@ -87,5 +114,37 @@ namespace csi281 {
   // create an array of CityYear instances to pass to the CityTemperatureData constructor
   // when the CityTemperatureData is created, it will take ownership of the array
   CityTemperatureData* readCity(string cityName, string fileName, int startLine, int endLine) {
+    ifstream file(fileName);  // Use fileName parameter, not hardcoded
+
+    //checks to see if the file is open or not and if it did not it prints that there was an error
+    if (!file.is_open()) {
+      cout << "Error opening file" << endl;
+      return nullptr;
+    }
+
+    //loops until i is greater than the startLine value and every time it loops it gets a line from the file
+    string line;
+    for (int i = 0; i < startLine; i++) {
+      getline(file, line);
+    }
+
+    //creates a vector that stores the lines
+    vector<CityYear> cityYears;
+    for (int currentLine = startLine; currentLine <= endLine && file.good(); currentLine++) {
+      CityYear cityYear = readLine(file);
+      cityYears.push_back(cityYear);
+    }
+
+    // Create array from vector
+    int numYears = cityYears.size();
+    CityYear* dataArray = new CityYear[numYears];
+
+    for (int i = 0; i < numYears; i++) {
+      dataArray[i] = cityYears[i];
+    }
+
+    // Create and return CityTemperatureData
+    CityTemperatureData* result = new CityTemperatureData(cityName, dataArray, numYears);
+    return result;
   }
 }  // namespace csi281
