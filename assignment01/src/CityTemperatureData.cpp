@@ -39,8 +39,11 @@ namespace csi281 {
 
   // Release any memory connected to CityTemperatureData.
   CityTemperatureData::~CityTemperatureData() {
+   // delete _name;
+    delete _data;
+   // delete _count;
     //delete _data;
-    delete[] _data;
+   //delete[] _data;
 
   }
 
@@ -63,6 +66,13 @@ namespace csi281 {
   // by averaging every CityYear.
   float CityTemperatureData::getAllTimeAverage() const {
     // YOUR CODE HERE
+  float total = 0;
+    for (int i = 0; i < _count; i++) {
+      total += _data[i].averageTemperature;
+    }
+    return(total / _count);
+
+    //not from class
     float sum = 0.0f;
     for (int i = 0; i < _count; i++) {
       sum += (_data)[i].averageTemperature;
