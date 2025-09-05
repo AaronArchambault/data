@@ -114,37 +114,34 @@ namespace csi281 {
   // create an array of CityYear instances to pass to the CityTemperatureData constructor
   // when the CityTemperatureData is created, it will take ownership of the array
   CityTemperatureData* readCity(string cityName, string fileName, int startLine, int endLine) {
-    ifstream file(fileName);  // Use fileName parameter, not hardcoded
+    ifstream file(fileName);
 
-    //checks to see if the file is open or not and if it did not it prints that there was an error
     if (!file.is_open()) {
       cout << "Error opening file" << endl;
       return nullptr;
     }
 
-    //loops until i is greater than the startLine value and every time it loops it gets a line from the file
+
     string line;
     for (int i = 0; i < startLine; i++) {
       getline(file, line);
     }
 
-    //creates a vector that stores the lines
-    vector<CityYear> cityYears;
-    for (int currentLine = startLine; currentLine <= endLine && file.good(); currentLine++) {
-      CityYear cityYear = readLine(file);
-      cityYears.push_back(cityYear);
-    }
 
-    // Create array from vector
-    int numYears = cityYears.size();
+    int numYears = endLine - startLine + 1;
+
+
     CityYear* dataArray = new CityYear[numYears];
 
-    for (int i = 0; i < numYears; i++) {
-      dataArray[i] = cityYears[i];
+
+    int arrayIndex = 0;
+    for (int currentLine = startLine; currentLine <= endLine && file.good(); currentLine++) {
+      dataArray[arrayIndex] = readLine(file);
+      arrayIndex++;
     }
 
-    // Create and return CityTemperatureData
-    CityTemperatureData* result = new CityTemperatureData(cityName, dataArray, numYears);
+
+    CityTemperatureData* result = new CityTemperatureData(cityName, dataArray, arrayIndex);
     return result;
   }
 }  // namespace csi281

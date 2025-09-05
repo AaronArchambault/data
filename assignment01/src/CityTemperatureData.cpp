@@ -39,11 +39,8 @@ namespace csi281 {
 
   // Release any memory connected to CityTemperatureData.
   CityTemperatureData::~CityTemperatureData() {
-   // delete _name;
     delete _data;
-   // delete _count;
-    //delete _data;
-   //delete[] _data;
+
 
   }
 
