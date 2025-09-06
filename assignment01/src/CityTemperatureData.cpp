@@ -39,8 +39,8 @@ namespace csi281 {
 
   // Release any memory connected to CityTemperatureData.
   CityTemperatureData::~CityTemperatureData() {
-    delete _data;
 
+    delete _data;
 
   }
 
@@ -48,14 +48,13 @@ namespace csi281 {
   // Find the right CityYear in the array and return it
   const CityYear CityTemperatureData::operator[](const int year) const {
     // YOUR CODE HERE
-    for (int i = 0; i < _count; i++) {
-      if (_data[i].year == year) {
-        return _data[i];
+   for (int i =0; i < _count; i++) {
+     if (_data[i].year == year) {
+       return _data[i];
+     }
+   }
 
-      }
-    }
-    cout << "error" << endl;
-    return CityYear();
+    return CityYear{0,0,0,0,0,0};
   }
 
 
@@ -67,14 +66,8 @@ namespace csi281 {
     for (int i = 0; i < _count; i++) {
       total += _data[i].averageTemperature;
     }
-    return(total / _count);
+    return (_count > 0) ? (total / _count) : 0 ;
 
-    //not from class
-    float sum = 0.0f;
-    for (int i = 0; i < _count; i++) {
-      sum += (_data)[i].averageTemperature;
-    }
-    return sum / _count;
   }
 
   // Sum all of the days below 32 for all years.

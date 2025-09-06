@@ -30,18 +30,23 @@
 #include <algorithm>  // for remove_if()
 #include <iostream>
 #include <sstream>
-#include <vector>
+
 
 using namespace std;
 
 namespace csi281 {
-
   // Remove extraneous characters from string so it can
   // be converted into a number
   void clean(string &str) {
-    string unwanted = "\"\' \t\n";
+   /* const string unwanted = "\"\' \t\n";
     str.erase(
-        remove_if(str.begin(), str.end(), [&](char &c) { return !unwanted.find_first_of(c); }));
+        remove_if(str.begin(), str.end(), [&](char &c) { return !unwanted.find_first_of(c); }), str.end());*/
+    const string unwanted = "\"\' \t\n";
+    str.erase(
+        remove_if(str.begin(), str.end(), [&](char c) {
+          return unwanted.find(c) != string::npos;
+        }), str.end());
+
   }
 
   // Read from an input string stream we hit the next comma, or the end
@@ -50,6 +55,7 @@ namespace csi281 {
     string holder;
     getline(iss, holder, ',');
     clean(holder);
+    if (holder.empty()) return 0;
     return stof(holder);
   }
 
@@ -59,6 +65,7 @@ namespace csi281 {
     string holder;
     getline(iss, holder, ',');
     clean(holder);
+    if (holder.empty()) return 0;
     return stoi(holder);
   }
 
@@ -77,30 +84,25 @@ namespace csi281 {
   CityYear readLine(ifstream &file) {
     // YOUR CODE HERE
     string line;
-    getline(file, line);
+    if (!getline(file, line)) {
+      return CityYear{0,0,0,0,0};
+    }
+
     istringstream iss(line);
 
-    //declaring the variables
-    string station = readStringCell(iss);
+    string stationID = readStringCell(iss);
     string name = readStringCell(iss);
-    int year = readIntCell(iss);
-    int dx32 = readIntCell(iss);
-    int dx90 = readIntCell(iss);
-    float tavg = readFloatCell(iss);
-    float tmax = readFloatCell(iss);
-    float tmin = readFloatCell(iss);
+   
 
-    //setting values
-    CityYear cityYear;
-    cityYear.year = year;
-    cityYear.numDaysBelow32 = dx32;
-    cityYear.numDaysAbove90 = dx90;
-    cityYear.averageTemperature = tavg;
-    cityYear.averageMax = tmax;
-    cityYear.averageMin = tmin;
+    CityYear yearData;
+    yearData.year = readIntCell(iss);
+    yearData.numDaysBelow32 = readIntCell(iss);
+    yearData.numDaysAbove90 = readIntCell(iss);
+    yearData.averageTemperature = readFloatCell(iss);
+    yearData.averageMax = readFloatCell(iss);
+    yearData.averageMin = readFloatCell(iss);
+    return yearData;
 
-    //returning
-    return cityYear;
 
   }
 
@@ -114,34 +116,40 @@ namespace csi281 {
   // create an array of CityYear instances to pass to the CityTemperatureData constructor
   // when the CityTemperatureData is created, it will take ownership of the array
   CityTemperatureData* readCity(string cityName, string fileName, int startLine, int endLine) {
+    //your code
     ifstream file(fileName);
-
     if (!file.is_open()) {
-      cout << "Error opening file" << endl;
+      cout << "Error opening file " << fileName << endl;
       return nullptr;
     }
 
 
-    string line;
-    for (int i = 0; i < startLine; i++) {
-      getline(file, line);
+    string header;
+    getline(file, header);
+
+
+    string skip;
+    for (int i = 1; i < startLine; i++) {
+      getline(file, skip);
     }
+
+
+
 
 
     int numYears = endLine - startLine + 1;
+    CityYear* data = new CityYear[numYears];
 
-
-    CityYear* dataArray = new CityYear[numYears];
-
-
-    int arrayIndex = 0;
-    for (int currentLine = startLine; currentLine <= endLine && file.good(); currentLine++) {
-      dataArray[arrayIndex] = readLine(file);
-      arrayIndex++;
+    for (int i = 0; i < numYears; i++) {
+      if (file.good()) {
+        data[i] = readLine(file);
+      } else {
+        data[i] = CityYear{0,0,0,0,0};
+      }
     }
 
-
-    CityTemperatureData* result = new CityTemperatureData(cityName, dataArray, arrayIndex);
-    return result;
+    file.close();
+    return new CityTemperatureData(cityName, data, numYears);
   }
-}  // namespace csi281
+    // namespace csi281
+}
