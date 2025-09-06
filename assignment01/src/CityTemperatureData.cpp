@@ -5,7 +5,7 @@
 //  You SHOULD modify this file.
 //
 //  Copyright 2019 David Kopec
-// Aaron
+// Aaron Archambault
 //  Permission is hereby granted, free of charge, to any person
 //  obtaining a copy of this software and associated documentation files
 //  (the "Software"), to deal in the Software without restriction,
@@ -39,16 +39,16 @@ namespace csi281 {
 
   // Release any memory connected to CityTemperatureData.
   CityTemperatureData::~CityTemperatureData() {
-
     delete _data;
-
   }
 
   // Look up a CityYear instance held by CityTemperatureData by its year.
   // Find the right CityYear in the array and return it
   const CityYear CityTemperatureData::operator[](const int year) const {
-    // YOUR CODE HERE
-   for (int i =0; i < _count; i++) {
+    //it loops untill the value of i is grater than the value of _count and everytime it loops it tests
+    //if the data value at index i .year is the same as the year and if it is then it retruns the value of _data
+    //at index i but if it exits the loop it returns CityYear with 0s in all of the values somewhat as a sign that it failed
+   for (int i = 0; i < _count; i++) {
      if (_data[i].year == year) {
        return _data[i];
      }
@@ -61,18 +61,20 @@ namespace csi281 {
   // Get the average (mean) temperature of all time for this city
   // by averaging every CityYear.
   float CityTemperatureData::getAllTimeAverage() const {
-    // YOUR CODE HERE
+    //it sets the total to 0 and then it loops until i is grater than _count and every time it loops it takes the total and adds
+    //the total plus the _data value at index i of the .averageTempature then when it exits the loop it returns the total devied by the count
   float total = 0;
     for (int i = 0; i < _count; i++) {
       total += _data[i].averageTemperature;
     }
-    return (_count > 0) ? (total / _count) : 0 ;
+    return total / _count;
 
   }
 
   // Sum all of the days below 32 for all years.
   int CityTemperatureData::getTotalDaysBelow32() const {
-    // YOUR CODE HERE
+    //sets the total to 0 and then it loops until i is grater than _count and everytime it loops it sets the value of total to be total plus the value of _data at the
+    //i index of the numDaysBelow32 and then when it exits the loop it returns the total
     int total = 0;
     for (int i = 0; i < _count; i++) {
       total += (_data)[i].numDaysBelow32;
@@ -82,7 +84,8 @@ namespace csi281 {
 
   // Sum all of the days above 90 for all years.
   int CityTemperatureData::getTotalDaysAbove90() const {
-    // YOUR CODE HERE
+    //sets the value of total and then it loops until i is grater than _count and everytime it loops it sets the total to the total plus
+    //the vaule of _data at the index of i of the numDaysAbove90 and then when it exits the loop it returns the total
     int total = 0;
     for (int i = 0; i < _count; i++) {
       total += (_data)[i].numDaysAbove90;
