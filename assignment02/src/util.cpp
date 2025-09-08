@@ -42,6 +42,18 @@ namespace csi281 {
   // Suggest using the facilities in STL <random>
   int *randomIntArray(const int length, const int min, const int max) {
     // YOUR CODE HERE
+    int* array = new int[length];
+
+
+      random_device rd;
+      mt19937 gen(rd());
+      uniform_int_distribution<> dist(min, max);
+
+    for (int i = 0; i < length; i++) {
+      array[i] = dist(gen);
+
+    }
+    return array;
   }
 
   // Finds the speed of linear versus binary search
@@ -69,14 +81,32 @@ namespace csi281 {
     // Put the result in a variable linearSearchSpeed
 
     // YOUR CODE HERE
+    auto linearStart  = duration_cast< nanoseconds >(system_clock::now().time_since_epoch()).count();
 
+    for (auto i = 0; i < numTests; i++) {
+    int result = linearSearch(testArray, length, testKeys[i]);
+    }
+    auto LinearEnd = duration_cast< nanoseconds >(system_clock::now().time_since_epoch()).count();
+    auto linearSearchSpeed = (linearStart - LinearEnd) / numTests;
     // Do numTests binary searches and find the average time
     // Put the result in a variable binarySearchSpeed
 
+    sort(testArray, testArray + numTests);
+
+    auto binaryStart  = duration_cast< nanoseconds >(system_clock::now().time_since_epoch()).count();
+
+    for (auto i = 0; i < numTests; i++) {
+      int result = binarySearch(testArray, length, testKeys[i]);
+    }
+
+    auto binaryEnd = duration_cast< nanoseconds >(system_clock::now().time_since_epoch()).count();
+    auto binarySearchSpeed = (binaryStart - binaryEnd) / numTests;
     // YOUR CODE HERE
 
     delete testArray;
     delete testKeys;
+    delete[] testArray;
+    delete[] testKeys;
 
     return pair<nanoseconds, nanoseconds>(linearSearchSpeed, binarySearchSpeed);
   }
