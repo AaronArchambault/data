@@ -86,12 +86,12 @@ namespace csi281 {
     for (auto i = 0; i < numTests; i++) {
     int result = linearSearch(testArray, length, testKeys[i]);
     }
-    auto LinearEnd = duration_cast< nanoseconds >(system_clock::now().time_since_epoch()).count();
-    auto linearSearchSpeed = (linearStart - LinearEnd) / numTests;
+    auto linearEnd = duration_cast< nanoseconds >(system_clock::now().time_since_epoch()).count();
+    auto linearSearchSpeed = (linearEnd - linearStart) / numTests;
     // Do numTests binary searches and find the average time
     // Put the result in a variable binarySearchSpeed
 
-    sort(testArray, testArray + numTests);
+    sort(testArray, testArray + length);
 
     auto binaryStart  = duration_cast< nanoseconds >(system_clock::now().time_since_epoch()).count();
 
@@ -103,8 +103,8 @@ namespace csi281 {
     auto binarySearchSpeed = (binaryStart - binaryEnd) / numTests;
     // YOUR CODE HERE
 
-    delete testArray;
-    delete testKeys;
+    //delete testArray;
+   // delete testKeys;
     delete[] testArray;
     delete[] testKeys;
 
