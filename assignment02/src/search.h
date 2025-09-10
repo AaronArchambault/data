@@ -4,7 +4,7 @@
 //  Functions for doing linear search and binary search on an
 //  arbitrary array.
 //  You SHOULD modify this file.
-//
+//Aaron Archambault
 //  Copyright 2019 David Kopec
 //
 //  Permission is hereby granted, free of charge, to any person
@@ -41,11 +41,7 @@ namespace csi281 {
       if (array[i] == key) {
         return i;
       }
-      /*else if (array[i] < key) {
-        std::cout << "not found" << std::endl;
-        return -1;
 
-      }*/
     }
     return -1;
 
