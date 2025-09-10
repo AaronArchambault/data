@@ -1,8 +1,12 @@
-1. 
+1 The total time complexity/Big-O runtime of randomIntArray() is O(n) the function has a single loop that runs the length times, where each iteration performs constant-time operations (generating random numbers and assigning it to an array element). The random number generator is also uniform int distribution and mt19937 takes constant time per call and that makes the total runtime linear in the length parameter.
 
-2.
 
-3.
+2 The total time complexity/Big-O runtime of arraySearchSpeed() is O(n long n + m*n) with the randomIntArray(length, 0, length) being O(n) where n = length and then randomIntArray(numTests, 0, length) O(m) where m = numTests and the linear search loop being O(m*n) - m tests x O(n) per linear search and sort(testArray, testArray + length) being O(n log n) per binary search and the binary search loop being O(m*n) - m tests x O(long n) per binary search. With the dominant terms are O(n long n) from sorting and O(m*n) from linear searches. Since the relative sizes of m and n are not known the tightest bound is  O(n log n + m*n) or O(max(n log n, m*n)).
 
-4.
+
+3 the cost would be that if each failed linear search would examine all N elements and the cost per search would be 5 * N = 5 * 10,000 = 50,000 instructions and the total cost for k search would be l * 50,000 instructions. For the sort + the binary search of k searches the sorting cost is 12 * N * log(N) = 12 * 10,000 * log(10,000), using the log of base 2 like in the book log(10,000) = about 13.29 and the sorting cost would be about 12 * 10,000 * 13.29 = 1,594,800 instructions and each binary search costs 10 instructions so total cost would be 1,594,800 + k * 10 instructions. To find k: k*50,000 = 1,594,800 + k * 10, k*50,000 - k * 10 = 1,594,800 k * (50,000 - 10) = 1,584,800 k * 49,990 = 1,594,800 k = 1,594,800/49,990k = about 31.91. So rounded it is 32
+
+
+4 with the function arraySearchSpeed() returns a pair three alternative C++ constructors that could have been used instead of pair as the return type are struct with it providing access to members like (result.linear, result.binary), vector with treating the two timing results as a collection of values and access them via indexing like (result[0] for linear, and result[1] for binary
+y), an array to enforce that both elements are the same type and provide array access with indexing.
 

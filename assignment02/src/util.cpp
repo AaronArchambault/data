@@ -100,7 +100,7 @@ namespace csi281 {
     }
 
     auto binaryEnd = duration_cast< nanoseconds >(system_clock::now().time_since_epoch()).count();
-    auto binarySearchSpeed = (binaryStart - binaryEnd) / numTests;
+    auto binarySearchSpeed = (binaryEnd - binaryStart) / numTests;
     // YOUR CODE HERE
 
     //delete testArray;
