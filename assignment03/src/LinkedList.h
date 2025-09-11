@@ -5,6 +5,7 @@
 //  You SHOULD modify this file.
 //
 //  Copyright 2019 David Kopec
+//  Aaron Archambault
 //
 //  Permission is hereby granted, free of charge, to any person
 //  obtaining a copy of this software and associated documentation files
@@ -54,23 +55,45 @@ namespace csi281 {
     // Return -1 if it is not found
     int find(const T &item) {
       // YOUR CODE HERE
+      Node *current = head;
+      while (current != nullptr) {
+        if (current->data == item) {
+          return current->index;
+        }
+      }
+      return -1;
     }
 
     // Get the item at a particular index
     T &get(int index) {
       assert(index < count);  // can't insert off end
       assert(index >= 0);     // no negative indices
-                              // YOUR CODE HERE
+
+      // YOUR CODE HERE
     }
 
     // Insert at the beginning of the collection
     void insertAtBeginning(const T &item) {
       // YOUR CODE HERE
+      Node *newNode = new Node;
+      newNode->data = item;
+      newNode->next = head;
+      head = newNode;
+      count++;
     }
 
     // Insert at the end of the collection
     void insertAtEnd(const T &item) {
-      // YOUR CODE HERE
+      // YOUR CODE HERE comeback
+      while (item->next != nullptr) {
+        item = item->next;
+        auto newNode = new Node;
+        newNode->data = item;
+        newNode->next = nullptr;
+        tail->next = newNode;
+      }
+      if (count == 0) {}
+      insertAtBeginning(item);
     }
 
     // Insert at a specific index
@@ -102,13 +125,33 @@ namespace csi281 {
     // Remove the item at the beginning of the collection
     void removeAtBeginning() {
       assert(count > 0);
-      // YOUR CODE HERE
+      // YOUR CODE HERE come back
+      if (count == 1) {
+        head = head->next;
+        tail = tail->next;
+        delete tail;
+        count--;
+        return;
+      }
     }
 
     // Remove the item at the end of the collection
     void removeAtEnd() {
       assert(count > 0);
-      // YOUR CODE HERE
+      // YOUR CODE HERE come back
+      auto newNode = new Node;
+      while (head->next != nullptr) {
+        head = head->next;
+        tail = tail->next;
+        delete tail;
+      }
+
+      if (count == 1) {
+        tail = tail->next;
+        delete head;
+      }
+      count--;
+      return;
     }
 
     // Remove the item at a specific index
