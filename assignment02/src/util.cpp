@@ -117,8 +117,8 @@ namespace csi281 {
     auto binaryStart  = duration_cast< nanoseconds >(system_clock::now().time_since_epoch()).count();
 
     //loops until i is greater than the numTests, and every time it loops it sets the result to be the
-    //value it gets from the binarySearch and its job is to run for all the num of test to see how long
-    //sorting is after i is greater than numTests it sets binaryEnd to the duration_cast then it sets
+    //value it gets from the binarySearch, and its job is to run for all the number of test to see how long
+    //sorting is after i is greater than numTests, it sets binaryEnd to the duration_cast, then it sets
     //binarySearchSpeed to the value of binaryEnd - binaryStart / numTests
     for (auto i = 0; i < numTests; i++) {
       int result = binarySearch(testArray, length, testKeys[i]);
