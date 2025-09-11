@@ -56,10 +56,13 @@ namespace csi281 {
     int find(const T &item) {
       // YOUR CODE HERE
       Node *current = head;
+      int index = 0;
       while (current != nullptr) {
         if (current->data == item) {
-          return current->index;
+          return index;
         }
+        current = current->next;
+        index++;
       }
       return -1;
     }
@@ -70,31 +73,42 @@ namespace csi281 {
       assert(index >= 0);     // no negative indices
 
       // YOUR CODE HERE
+      Node *current = head;
+      for (int i = 1; i < index; i++) {
+        current = current->next;
+      }
+      return current->data;
     }
 
     // Insert at the beginning of the collection
     void insertAtBeginning(const T &item) {
       // YOUR CODE HERE
-      Node *newNode = new Node;
-      newNode->data = item;
+      Node *newNode = new Node(item);
       newNode->next = head;
       head = newNode;
+
+      if (count == 0) {
+        tail = newNode;
+      }
       count++;
     }
 
     // Insert at the end of the collection
     void insertAtEnd(const T &item) {
-      // YOUR CODE HERE comeback
-      while (item->next != nullptr) {
-        item = item->next;
-        auto newNode = new Node;
-        newNode->data = item;
-        newNode->next = nullptr;
-        tail->next = newNode;
+      // YOUR CODE HERE should be good?
+      Node *newNode = new Node(item);
+
+      if (head == nullptr) {
+        head = newNode;
+        tail = newNode;
       }
-      if (count == 0) {}
-      insertAtBeginning(item);
+      else {
+        tail->next = newNode;
+        tail = newNode;
+      }
+     count++;
     }
+
 
     // Insert at a specific index
     void insert(const T &item, int index) {
@@ -126,32 +140,43 @@ namespace csi281 {
     void removeAtBeginning() {
       assert(count > 0);
       // YOUR CODE HERE come back
-      if (count == 1) {
+      Node *current = head;
+      head = head->next;
+
+      if (head == nullptr) {
+        tail = nullptr;
+      }
+      delete current;
+      count--;
+     /* if (count == 1) {
         head = head->next;
         tail = tail->next;
         delete tail;
         count--;
         return;
-      }
+      }*/
     }
 
     // Remove the item at the end of the collection
     void removeAtEnd() {
       assert(count > 0);
-      // YOUR CODE HERE come back
-      auto newNode = new Node;
-      while (head->next != nullptr) {
-        head = head->next;
-        tail = tail->next;
-        delete tail;
-      }
-
-      if (count == 1) {
-        tail = tail->next;
+      // YOUR CODE HERE Should be good?
+      if (count == 0) {
         delete head;
+        head = nullptr;
+        tail = nullptr;
+      }
+      else {
+        Node *current = tail;
+        while (current->next != tail) {
+          current = current->next;
+        }
+        delete tail;
+        tail = current;
+        tail->next = nullptr;
       }
       count--;
-      return;
+
     }
 
     // Remove the item at a specific index
