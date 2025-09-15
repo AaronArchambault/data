@@ -30,7 +30,7 @@
 
 #include <algorithm>  // for copy(), min(), move_backward
                       // for assert()
-
+#include <cassert>
 #include "Collection.h"
 #include "MemoryLeakDetector.h"
 
@@ -54,13 +54,19 @@ namespace csi281 {
     // Return -1 if it is not found>
     int find(const T &item) {
       // YOUR CODE HERE
-      
-
+      for (int i = 0; i < count; i++) {
+        if (item == backingStore[i]) {
+          return i;
+        }
+      }
+    return -1;
     }
 
     // Get the item at a particular index
     T &get(int index) {
       // YOUR CODE HERE
+      assert(index >= 0 && index < this->count);
+      return backingStore[index];
     }
 
     // Insert at the beginning of the collection
@@ -69,6 +75,12 @@ namespace csi281 {
     // Hint: May want to use moveDownFrom()
     void insertAtBeginning(const T &item) {
       // YOUR CODE HERE
+      if (this->count >= this->capacity) {
+        setCapacity(capacity * 2);
+      }
+      moveDownFrom(0);
+      backingStore[0] = item;
+      this->count++;
     }
 
     // Insert at the end of the collection
@@ -76,6 +88,11 @@ namespace csi281 {
     // inserting
     void insertAtEnd(const T &item) {
       // YOUR CODE HERE
+      if (this->count >= this->capacity) {
+        setCapacity(capacity * 2);
+      }
+      backingStore[this->count] = item;
+      this->count++;
     }
 
     // Insert at a specific index
@@ -84,17 +101,29 @@ namespace csi281 {
     // Hint: May want to use moveDownFrom()
     void insert(const T &item, int index) {
       // YOUR CODE HERE
+      if (this->count >= this->capacity) {
+        setCapacity(capacity * 2);
+      }
+      assert(index >= 0 && index <= this->count);
+      moveDownFrom(index);
+     backingStore[index] = item;
+      this->count++;
     }
 
     // Remove the item at the beginning of the collection
     void removeAtBeginning() {
       // YOUR CODE HERE
+      assert(this->count > 0);
+      move(backingStore + 1, backingStore + count, backingStore);
+      this->count--;
     }
 
     // Remove the item at the end of the collection
     // Hint: This might be very simple.
     void removeAtEnd() {
       // YOUR CODE HERE
+      assert(this->count > 0);
+      this->count--;
     }
 
     // Remove the item at a specific index
@@ -102,6 +131,9 @@ namespace csi281 {
     // down and removing the starting beginning element
     void removeAt(int index) {
       // YOUR CODE HERE
+      assert(index >= 0 && index < this->count);
+      move(backingStore + index + 1, backingStore + count, backingStore + index);
+      this->count--;
     }
 
     // Change the capacity of the dynamic array

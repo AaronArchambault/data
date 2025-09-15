@@ -30,6 +30,7 @@
 #define linkedlist_hpp
 
 #include "Collection.h"
+#include <cassert>//added idk if it is what I need to do but I think it works
 #include "MemoryLeakDetector.h"
 
 using namespace std;
@@ -74,7 +75,7 @@ namespace csi281 {
 
       // YOUR CODE HERE
       Node *current = head;
-      for (int i = 1; i < index; i++) {
+      for (int i = 0; i < index; i++) {
         current = current->next;
       }
       return current->data;
@@ -148,26 +149,19 @@ namespace csi281 {
       }
       delete current;
       count--;
-     /* if (count == 1) {
-        head = head->next;
-        tail = tail->next;
-        delete tail;
-        count--;
-        return;
-      }*/
     }
 
     // Remove the item at the end of the collection
     void removeAtEnd() {
       assert(count > 0);
       // YOUR CODE HERE Should be good?
-      if (count == 0) {
+      if (count == 1) {
         delete head;
         head = nullptr;
         tail = nullptr;
       }
       else {
-        Node *current = tail;
+        Node *current = head;
         while (current->next != tail) {
           current = current->next;
         }
@@ -176,7 +170,6 @@ namespace csi281 {
         tail->next = nullptr;
       }
       count--;
-
     }
 
     // Remove the item at a specific index
