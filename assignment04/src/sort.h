@@ -60,6 +60,7 @@ namespace csi281 {
           min = j;
         }
       }
+      swap(array[i], array[min]);
     }
   }
 
@@ -68,12 +69,13 @@ namespace csi281 {
   template <typename T> void insertionSort(T array[], const int length) {
     // YOUR CODE HERE
     for (int i = 1; i < length; i++) {
-      int key = array[i];
-      int j = i;
-      while (j > 0 && array[j - 1] > array[j]) {
-        swap(array[j], array[j - 1]);
+      T key = array[i];
+      int j = i - 1;
+      while (j >= 0 && array[j] > key) {
+        array[j + 1] = array[j];
         j = j - 1;
       }
+      array[j + 1] = key;
     }
   }
 }  // namespace csi281
