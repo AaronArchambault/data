@@ -55,7 +55,6 @@ namespace csi281 {
     // Find the index of a particular item
     // Return -1 if it is not found
     int find(const T &item) {
-      // YOUR CODE HERE
       Node *current = head; //creates a node of a pointer current that is set to the value of head
       int index = 0; //creates an int indexs and sets it to be 0
       while (current != nullptr) { //it keeps looping until current does not = nullptr so until it reaches the end
@@ -73,7 +72,6 @@ namespace csi281 {
       assert(index < count);  // can't insert off end
       assert(index >= 0);     // no negative indices
 
-      // YOUR CODE HERE
       Node *current = head;//creates a node of a pointer current that is set to the value of head
       for (int i = 0; i < index; i++) { //loops until i is not less than index and it adds 1 to i everytime it loops
         current = current->next; //everytime it loops it sets current to the vaule of the next current value of current
@@ -83,7 +81,6 @@ namespace csi281 {
 
     // Insert at the beginning of the collection
     void insertAtBeginning(const T &item) {
-      // YOUR CODE HERE
       Node *newNode = new Node(item); //creates a node of a pointer of newNode that is set to the value of a new node with item passed in
       newNode->next = head;//then it sets the next value in the newNode to be the value of head
       head = newNode; //then it sets head to be the value of newNode
@@ -96,7 +93,6 @@ namespace csi281 {
 
     // Insert at the end of the collection
     void insertAtEnd(const T &item) {
-      // YOUR CODE HERE
       Node *newNode = new Node(item);//creates a node of a pointer of newNode that is set to the value of a new node with item passed in
 
       if (head == nullptr) { //it tests if head is = to nullptr and if it is then it sets head and tail to be the value of newNode
@@ -143,7 +139,6 @@ namespace csi281 {
     // Remove the item at the beginning of the collection
     void removeAtBeginning() {
       assert(count > 0);
-      // YOUR CODE HERE
       Node *current = head;//creates a node of a pointer current that is set to the value of head
       head = head->next; //sets the value of head to be the value of the next head value
 
@@ -157,7 +152,6 @@ namespace csi281 {
     // Remove the item at the end of the collection
     void removeAtEnd() {
       assert(count > 0);
-      // YOUR CODE HERE
       if (count == 1) { //tests if count is 1 and if it is then it deletes head and then it sets head and tail to be nullptr
         delete head;
         head = nullptr;
