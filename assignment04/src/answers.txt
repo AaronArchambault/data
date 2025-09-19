@@ -1,0 +1,32 @@
+Aaron Archambault
+
+1. Why is bubbleSort() slower than selectionSort() and insertionSort()?
+Please explain your answer (succinctly).
+
+
+The reason why bubbleSort() is slower than selectionSort() and insertionSort() is that bubbleSort() performs more swaps, while all three of the sorts have O(n^2) comparisons in their worst case. BubbleSort () does O(n^2)  swaps in the worst case, where selectionSort() only does O(n) swaps, and optimized insertionSort() does O(n^2) shifts. So in the end the excessive swapping that bubbleShort() does makes it less efficient and in turn slower.
+
+
+2. Why is an optimized insertionSort() faster than selectionSort()?
+Please explain your answer (succinctly).
+
+
+The reason why an optimized insertionSort() is faster than selectionSort() is that it has better best-case performance of O(n) on nearly sorted data compared to selectionSort’s() consistent O(n^2). It also tends to use shifts instead of swaps and it has better cache locality and can terminate early when the correct position is found
+
+
+3. What property does a custom class need to have for it to be usable in an array with the three sort methods you implemented? Give a name to the concept and also explain specifically in C++ what would need to be implemented.
+
+
+The property that a custom class needs to have for it to be usable in an array with the three sort methods I implemented are that the class need to be comparable like less than comparable and in C++ that means implementing the operator < function: like:
+Class AaronClass{
+Public:
+Bool operator<(const AaronClass& other) const{
+Logic
+}
+};
+
+
+4. Why is std::sort so much faster than any of our implementations? Is it primarily because it is better optimized, or is it something more fundamental?
+The reason why std::sort is so much faster than any of our implementations is because it is fundamentally different, and not just better optimized. The std::sort uses introsort, which is a hybrid algorithm combining quicksort, heapsort, and insertionSort and has O(n log n) average and its worst-case complexity vs our O(n^2) algorithm. i t uses advanced techniques like median-of-three pivot selection and switches algorithms based on data characteristics.
+
+

@@ -54,6 +54,10 @@ namespace csi281 {
 
     // Find the index of a particular item
     // Return -1 if it is not found
+    //pre: the linked list has to exist and item has to be passed in
+    //post: if the item does not exist it returns -1, but if it does exist in the linked list then it will find it
+    //and return its index
+    //purpose: to find the index of an item
     int find(const T &item) {
       Node *current = head; //creates a node of a pointer current that is set to the value of head
       int index = 0; //creates an int indexs and sets it to be 0
@@ -68,6 +72,9 @@ namespace csi281 {
     }
 
     // Get the item at a particular index
+    //pre: the linked list has to exist and index is passed in
+    //post: it returns the data/item of the index that was passed in
+    //purpose: to get the item of a particualr index
     T &get(int index) {
       assert(index < count);  // can't insert off end
       assert(index >= 0);     // no negative indices
@@ -80,6 +87,9 @@ namespace csi281 {
     }
 
     // Insert at the beginning of the collection
+    //pre: the linked list has to exist and item is passed in
+    //post: it adds one to the front of the linked list and adds one to the count
+    //purpose: to insert an item at the beginning of the linked list
     void insertAtBeginning(const T &item) {
       Node *newNode = new Node(item); //creates a node of a pointer of newNode that is set to the value of a new node with item passed in
       newNode->next = head;//then it sets the next value in the newNode to be the value of head
@@ -92,6 +102,9 @@ namespace csi281 {
     }
 
     // Insert at the end of the collection
+    //pre: the linked list has to exist and item is passes in
+    //post: it goes to the end and adds a new item to the end of the list and increases the count by 1
+    //purpose: to insert an item at the end of the linked list
     void insertAtEnd(const T &item) {
       Node *newNode = new Node(item);//creates a node of a pointer of newNode that is set to the value of a new node with item passed in
 
@@ -108,6 +121,10 @@ namespace csi281 {
 
 
     // Insert at a specific index
+    //pre: the linked list has to exist item and index are passed in, and insertAtBeginning insertAtEnd are implented
+    //post: if index is 0 it adds to the beginning and if index and count are the same then it adds to the end
+    //or it finds the location of the index passed in and inserts the item
+    //purpose: to insert at a specific index
     void insert(const T &item, int index) {
       assert(index <= count);  // can't insert off end
       assert(index >= 0);      // no negative indices
@@ -137,6 +154,9 @@ namespace csi281 {
     }
 
     // Remove the item at the beginning of the collection
+    //pre: the linked list has to exist item
+    //post: it removes and deletes the item at the beginning of the linked list and removes one from the count
+    //purpose: to remove the item at the beginning of the collection
     void removeAtBeginning() {
       assert(count > 0);
       Node *current = head;//creates a node of a pointer current that is set to the value of head
@@ -150,6 +170,9 @@ namespace csi281 {
     }
 
     // Remove the item at the end of the collection
+    //pre: the linked list has to exist
+    //post: it removes and deletes the last item at the end by moving to the end which should be nullptr and -1 from count
+    //purpose: to remove an item at the end of the linked list
     void removeAtEnd() {
       assert(count > 0);
       if (count == 1) { //tests if count is 1 and if it is then it deletes head and then it sets head and tail to be nullptr
@@ -171,6 +194,9 @@ namespace csi281 {
     }
 
     // Remove the item at a specific index
+    //pre: the linked list has to exist and index is passed in and removeAtBeginning and removeAtEnd are impleneted
+    //post: it finds the index that was passed and then it moves to that index and deletes it and adds to the locaiton and removes form the count
+    //purpose: to remove the item at a specific index
     void removeAt(int index) {
       assert(index >= 0);
       assert(index < count);

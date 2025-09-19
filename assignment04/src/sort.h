@@ -5,6 +5,7 @@
 //  You SHOULD modify this file.
 //
 //  Copyright 2019 David Kopec
+//  Aaron Archambault
 //
 //  Permission is hereby granted, free of charge, to any person
 //  obtaining a copy of this software and associated documentation files
@@ -39,10 +40,12 @@ namespace csi281 {
   // Performs an in-place ascending sort of *array* of size *length*
   // using the bubble sort algorithm
   template <typename T> void bubbleSort(T array[], const int length) {
-    // YOUR CODE HERE
-    for (int i = 0; i < length; i++) {
-      for (int j = i + 1; j < length; j++) {
-        if (array[j] < array[i]) {
+    for (int i = 0; i < length; i++) { //it loops until i is greater than length and every time it loops
+      //it adds 1 to the value of i
+      for (int j = i + 1; j < length; j++) {//it first set j to be the value of i + 1 and then it loops until
+        //j is greater than length and every time it loops it adds one to the value of j
+        if (array[j] < array[i]) { //it tests if the array of index j is less than the array of index i
+          //and if it is it calls swap with array i index and array j index passed into it and it swaps them
           swap(array[i], array[j]);
         }
       }
@@ -52,15 +55,17 @@ namespace csi281 {
   // Performs an in-place ascending sort of *array* of size *length*
   // using the selection sort algorithm
   template <typename T> void selectionSort(T array[], const int length) {
-    // YOUR CODE HERE
-    for (int i = 0; i < length; i++) {
-      int min = i;
-      for (int j = i + 1; j < length; j++) {
-        if (array[j] < array[min]) {
+    for (int i = 0; i < length; i++) { //loops until i is greater than length and every time it loops it adds one to i
+      int min = i; //sets int min to the value of i
+      for (int j = i + 1; j < length; j++) {//sets j to be i+1 and then it loops until j is greater than length
+      //and every time it loops it adds one to the value of j
+        if (array[j] < array[min]) { //tests if array index j is less than the array index min and if it is then
+          //it set min to the value of j
           min = j;
         }
       }
-      swap(array[i], array[min]);
+      swap(array[i], array[min]); //calls the swap with array at index i and array at index min passed in
+      //then it swaps them
     }
   }
 
@@ -68,14 +73,15 @@ namespace csi281 {
   // using the insertion sort algorithm
   template <typename T> void insertionSort(T array[], const int length) {
     // YOUR CODE HERE
-    for (int i = 1; i < length; i++) {
-      T key = array[i];
-      int j = i - 1;
-      while (j >= 0 && array[j] > key) {
-        array[j + 1] = array[j];
-        j = j - 1;
+    for (int i = 1; i < length; i++) { //loops until i is greater than length and every time it loops it adds one
+      //to the value of i
+      T key = array[i]; //sets T key to the value of array at index i
+      int j = i - 1; //sets j to be the value of i -1
+      while (j >= 0 && array[j] > key) {//loops until either j is greater or = to 0 and array index j is greater than key
+        array[j + 1] = array[j]; //sets array at index j+1 to the value of array at index j
+        j = j - 1; //sets j to j-1
       }
-      array[j + 1] = key;
+      array[j + 1] = key; //sets array at index j+1 to the value of key
     }
   }
 }  // namespace csi281
