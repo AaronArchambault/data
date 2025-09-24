@@ -39,6 +39,9 @@ namespace csi281 {
 
   // Performs an in-place ascending sort of *array* of size *length*
   // using the bubble sort algorithm
+  //pre: the array and length values must be made and passed in
+  //post: it will loop doing a bubblesort and it will make the array that was passed in sorted
+  //purpose: to use a bubble sort to sort the array that was passed in
   template <typename T> void bubbleSort(T array[], const int length) {
     for (int i = 0; i < length; i++) { //it loops until i is greater than length and every time it loops
       //it adds 1 to the value of i
@@ -54,6 +57,9 @@ namespace csi281 {
 
   // Performs an in-place ascending sort of *array* of size *length*
   // using the selection sort algorithm
+  //pre: the array and length values must be made and passed in
+  //post: the array that was passed in will be sorted using a selection sort
+  //purpose: to sort the array that is passed in using a slection sort
   template <typename T> void selectionSort(T array[], const int length) {
     for (int i = 0; i < length; i++) { //loops until i is greater than length and every time it loops it adds one to i
       int min = i; //sets int min to the value of i
@@ -71,6 +77,9 @@ namespace csi281 {
 
   // Performs an in-place ascending sort of *array* of size *length*
   // using the insertion sort algorithm
+  //pre: the array and length values must be passed in
+  //post: the array that was passed in is sorted using an insertion sort
+  //purpose: to sort the array using an insertion sort 
   template <typename T> void insertionSort(T array[], const int length) {
     // YOUR CODE HERE
     for (int i = 1; i < length; i++) { //loops until i is greater than length and every time it loops it adds one
