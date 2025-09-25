@@ -79,7 +79,7 @@ namespace csi281 {
   // using the insertion sort algorithm
   //pre: the array and length values must be passed in
   //post: the array that was passed in is sorted using an insertion sort
-  //purpose: to sort the array using an insertion sort 
+  //purpose: to sort the array using an insertion sort
   template <typename T> void insertionSort(T array[], const int length) {
     // YOUR CODE HERE
     for (int i = 1; i < length; i++) { //loops until i is greater than length and every time it loops it adds one

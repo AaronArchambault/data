@@ -27,6 +27,6 @@ Logic
 
 
 4. Why is std::sort so much faster than any of our implementations? Is it primarily because it is better optimized, or is it something more fundamental?
-The reason why std::sort is so much faster than any of our implementations is because it is fundamentally different, and not just better optimized. The std::sort uses introsort, which is a hybrid algorithm combining quicksort, heapsort, and insertionSort and has O(n log n) average and its worst-case complexity vs our O(n^2) algorithm. i t uses advanced techniques like median-of-three pivot selection and switches algorithms based on data characteristics.
+The reason why std::sort is so much faster than any of our implementations is because it is fundamentally different, and not just better optimized. The std::sort uses introsort, which is a hybrid algorithm combining quicksort, heapsort, and insertionSort and has O(n log n) average and its worst-case complexity vs our O(n^2) algorithm. it uses advanced techniques like median-of-three pivot selection and switches algorithms based on data characteristics.
 
 

@@ -8,5 +8,5 @@
 
 
 4 with the function arraySearchSpeed() returns a pair three alternative C++ constructors that could have been used instead of pair as the return type are struct with it providing access to members like (result.linear, result.binary), vector with treating the two timing results as a collection of values and access them via indexing like (result[0] for linear, and result[1] for binary
-y), an array to enforce that both elements are the same type and provide array access with indexing.
+y), an array to enforce that both elements are the same type and provide array access with indexing..
 
