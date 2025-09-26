@@ -141,7 +141,7 @@ namespace csi281 {
   // *end* will be the length of the array - 1 for a first run
   // NOTE: You can modify your old implementation from assignment 4
   // OR if you believe yours was incorrect, email me and I will
-  // send you mine assuming you are done with assignment 4,
+  // send you mine, assuming you are done with assignment 4,
   // but you will still need to modify it for this assignment
   // as described below
   // NOTE: You will need to modify the implementation to only
