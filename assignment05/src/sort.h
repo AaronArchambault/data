@@ -8,6 +8,7 @@
 //  any additional utility functions.
 //
 //  Copyright 2019 David Kopec
+//  Aaron Archambault
 //
 //  Permission is hereby granted, free of charge, to any person
 //  obtaining a copy of this software and associated documentation files
@@ -48,41 +49,32 @@ namespace csi281 {
   // *end* will be the length of the array - 1 for a first run
   // NOTE: Your solution MUST use std::inplace_merge
   // http://www.cplusplus.com/reference/algorithm/inplace_merge/
+  //pre: the t array, int start, and int end values must be passed in
+  //post: the array that was passed in is sorted using the mergesort
+  //purpose: to create a funciton that sorts an array using the merge Short
   template <typename T> void mergeSort(T array[], const int start, const int end) {
-    // YOUR CODE HERE not good, really bad
-    // create a temporary array to store the merged array
-   /* std::vector<T> temp(end - start + 1);
+    // YOUR CODE HERE
+if (start >= end) //it test if start is grater than or = to end and it that is true it retunrs
+  //becasue if that is true the array is most likely messed up due to their one being 1 element or more
+  //more elements at the start than the end
+{
+  return;
+}
+    int middle = start + (end - start) / 2; //creates an in for the middle of the index that is the value
+    //of start + (end - start) / 2 so that the program can get the middle of start and end
 
-    // indexes for the subarrays:
-    const size_t leftStart = start;
-    const size_t mid = start + (end - start) / 2;
-    const size_t leftEnd = mid;
-    const size_t rightStart = mid + 1;
-    const size_t rightEnd = end;
+    mergeSort(array, start, middle); // it calls itself and passes in the middle for the end
 
-    // indexes for
-    size_t tempIdx = 0;
-    size_t leftIdx = leftStart;
-    size_t rightIdx = rightStart;
+    mergeSort(array, middle + 1, end); //it calls itself and passes middle + 1 as the start
 
-    // merge the subarrays
-    while (leftIdx <= leftEnd && rightIdx <= rightEnd) {
-      if (array[leftIdx] < array[rightIdx])
-        temp[tempIdx++] = array[leftIdx++];
-      else
-        temp[tempIdx++] = array[rightIdx++];
-    }
+    std::inplace_merge(array + start, array + middle + 1, array + end +1);
+    //it calls the inplace merge sort and it passes in the array + the start as the first iterators
+    // then it passs array + middle + 1 as the middle iterator, and then it passes array + end + 1 as the
+    //final iterator
+    //just a little note I looked this up using the website that was give and also some others so that I could better understand it
+    //it works by taking the three iterators of first, middle, and last and then first and middle and middle last should be sorted
+    //and then merges them into on sorted range of first, last
 
-    // copy the remaining elements of the left subarray
-    while (leftIdx <= leftEnd)
-      temp[tempIdx++] = array[leftIdx++];
-
-    // copy the remaining elements of the right subarray
-    while (rightIdx <= rightEnd)
-      temp[tempIdx++] = array[rightIdx++];
-
-    // copy the merged array back to the original array
-    std::copy(temp.begin(), temp.end(), array.begin() + start);*/
   }
 
   // inplace merge without extra space
@@ -99,7 +91,8 @@ namespace csi281 {
     while (left <= mid && right <= end) {
       if (arr[left] <= arr[right]) {
         left++;
-      } else {
+      }
+      else {
         T temp = arr[right];
         for (size_t i = right; i > left; i--) {
           arr[i] = arr[i - 1];
@@ -130,9 +123,51 @@ namespace csi281 {
   // TIP: It may be helpful to swap the pivot to the end,
   // sort the center of the range, and then move the pivot back to
   // the appropriate place
+  //pre: the array, start, and end values must be passed in
+  //post: the array that was passed in is now sorted using the quick sort
+  //purpose: to create a function that can take in an array and sort it using a quick sort
   template <typename T> void quickSort(T array[], const int start, const int end) {
     // YOUR CODE HERE
+    if (start >= end)//it test if start is grater than or = to end and it that is true it retunrs
+      //becasue if that is true the array is most likely messed up due to their one being 1 element or more
+      //more elements at the start than the end
+    {
+      return;
+    }
+      std::uniform_int_distribution<int> dist(start, end); //generates a random number in the ranfe of start and end
+      int pivotIndex = dist(rng); //sets the pivotIndex = dist(rng) or in other words it sets the pivotIndex to the random number
+      std::swap(array[pivotIndex], array[end]); //it calls the swap function and it swaps
+    //array at the pivotIndex and the array at index end
+
+        T pivotValue = array[end]; //it creates a vareable of t type and sets it to be the value of
+    //array at the index of end
+        int i = start - 1;  // it sets the i int/index to be start - 1 so that the index is the smaller element
+
+        //it goes through elements from start to end
+        for (int j = start; j < end; j++) //it sets j to be the vale of start and then it loops until j is less than
+          //end and everytime it loops it adds 1 to j
+          {
+          //it tests if the current element(of array at index j) is <= pivot(pivotValue)
+          if (array[j] <= pivotValue)
+            {
+            i++; //adds 1 to the index of smaller element(of i)
+            std::swap(array[i], array[j]); //it calls the swap function and passes in and swaps
+            //the array at index i and the array at index j
+          }
+        }
+              std::swap(array[i + 1], array[end]); //it calls the swap function and passes in and swaps
+            //the array at index i + 1 and the array at index end
+            int pivotPos = i + 1; //it sets an int pivotPos to be the value of i + 1 which stores the final postion
+            //of where the pivot element ended up after the swap/partitioning
+
+            quickSort(array, start, pivotPos - 1); //it calls itself and it passes in array, start and
+            //pivotpos - 1 and it does this to recursively sort the left of the subarray that was created or
+            //it recursivly sorts the elements that are smaller than the pivot
+            quickSort(array, pivotPos + 1, end); //it calls itself and it passes in array, pivotPos + 1, and end
+            //it does this to recursively sort the right of the subarray that was created or
+            //it recursivly sorts the elements that are larger than the pivot
   }
+
 
   // Performs an in-place ascending sort of *array*
   // using the insertion sort algorithm
@@ -146,13 +181,22 @@ namespace csi281 {
   // as described below
   // NOTE: You will need to modify the implementation to only
   // sort part of the array as per the parameters of this version
+  //pre: the array, start, and end values must be passed in
+  //post: the array is sorted using the insertion sort
+  //purpose: to create a funciton that sorts an array using insertion sort
   template <typename T> void insertionSort(T array[], const int start, const int end) {
     // YOUR CODE HERE
-    for (int i = 1; i < end; i++) { //loops until i is greater than length and every time it loops it adds one
+    if (start >= end)//it test if start is grater than or = to end and it that is true it retunrs
+      //becasue if that is true the array is most likely messed up due to their one being 1 element or more
+      //more elements at the start than the end
+    {
+      return;
+    }
+    for (int i = start + 1; i <= end; i++) { //loops until i is greater than or = to end and every time it loops it adds one
       //to the value of i
       T key = array[i]; //sets T key to the value of array at index i
       int j = i - 1; //sets j to be the value of i -1
-      while (j >= 0 && array[j] > key) {//loops until either j is greater or = to 0 and array index j is greater than key
+      while (j >= start && array[j] > key) {//loops until either j is greater or = to start and array index j is greater than key
         array[j + 1] = array[j]; //sets array at index j+1 to the value of array at index j
         j = j - 1; //sets j to j-1
       }
@@ -168,8 +212,39 @@ namespace csi281 {
   // *end* will be the length of the array - 1 for a first run
   // TIP: You can copy your implementation of merge sort in here, and
   // should be able to call the insertionSort above
+  //pre: array, start, and end values must be passed in insertionSort and mergeshort must be implented
+  //post: the array is sorted using the hybridsort
+  //purpose: to create a function to short and array using a hybrid sort that uses other sorts to make it better
   template <typename T> void hybridSort(T array[], const int start, const int end) {
     // YOUR CODE HERE
+    if (start >= end)//it test if start is grater than or = to end and it that is true it retunrs
+      //becasue if that is true the array is most likely messed up due to their one being 1 element or more
+      //more elements at the start than the end
+    {
+      return;
+    }
+    if (end - start + 1 < 10) //tests if the end - start + 1 is less than 10 and if it is then it calls the
+      //insertionSort with the array, start, and end passed in
+    {
+      insertionSort(array, start, end); //calls the insertionSort function
+    }
+    else //if  end - start + 1 is not less than 10 then it does this other logic
+      {
+      int middle = start + (end - start) / 2; //it creates an int of middle and then it sets it to start + (end - start) / 2
+      //and it does this to get the middle of the end and start of the subarray
+      hybridSort(array, start, middle); //it calls the itself with the array, start, and middle passed in
+      //and it calls itself recursively to sort the left half of the subarray
+      hybridSort(array, middle + 1, end); //it calls the itself with the array, middle + 1, end passed in
+      //and it calls itself recursively to sort the right half of the subarray
+      
+      std::inplace_merge(array + start, array + middle + 1, array + end +1);
+      //it calls the inplace_merge funcion with array + start, array + middle + 1, and array + end +1 passed in
+      //and it does this to merge the two sorted havles/subarrays back togther and it makes the two sorted subarrays
+      //and combines them into one big sorted array
+      //just a little note I looked this up using the website that was give and also some others so that I could better understand it and then the rest with it was logic and trial + error
+    }
+
+
   }
 
 }  // namespace csi281
