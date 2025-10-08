@@ -236,7 +236,7 @@ if (start >= end) //it test if start is grater than or = to end and it that is t
       //and it calls itself recursively to sort the left half of the subarray
       hybridSort(array, middle + 1, end); //it calls the itself with the array, middle + 1, end passed in
       //and it calls itself recursively to sort the right half of the subarray
-      
+
       std::inplace_merge(array + start, array + middle + 1, array + end +1);
       //it calls the inplace_merge funcion with array + start, array + middle + 1, and array + end +1 passed in
       //and it does this to merge the two sorted havles/subarrays back togther and it makes the two sorted subarrays
