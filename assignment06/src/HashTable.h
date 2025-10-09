@@ -86,10 +86,10 @@ namespace csi281 {
       }
       bucket.emplace_back(key, value); //if it did not find the key then it adds a new key value pair to the end of the bucket
       //the emplace_back I think came either from auto fill and or it is from when I looked up hash table and fuctions to
-      //see what I could do with them
+      //see what I could do with them with the diffent . operations
       count++; //it adds one to the count so that the count of the list is increased by one
 
-      float loadFactor = getLoadFactor(); //sets loadfactor to theh value of getloadfactor and then it checks if
+      float loadFactor = getLoadFactor(); //sets loadfactor to the value of getloadfactor and then it checks if
       //that loadfactor is grater than the max load factor and if it is then it calls resize to resize the bucket
       if (loadFactor > MAX_LOAD_FACTOR)
         {
@@ -125,7 +125,6 @@ namespace csi281 {
           }
       }
       return nullopt; //returns a null if it can not find the key
-
     }
 
     // Remove a key and any associated value from the hash table
@@ -148,7 +147,7 @@ namespace csi281 {
       //original size to help with the removal
 
       bucket.remove_if([&key](const pair<K, V>& pair) //it removes all of the pairs with matching keys from the bucket
-        //and it gets keys by the rfeereances and checks them and thier first element
+        //and it gets keys by the references and checks them and thier first element
       {
         return pair.first == key; //returns if the pair.firt is the same as the key
       });
@@ -216,7 +215,9 @@ namespace csi281 {
           {
           for (auto &pair : oldhash[i]) //it loops through each of the key-values pairs and rehashes them in the new capacity
             {
-            put(pair.first, pair.second);
+            put(pair.first, pair.second);//use the put to put the first and second pairs in palce
+            //put mainly came from a mix of initaiol me seeing it form an auto fill tab suggestion
+            //and then me looking it up to see what it does and how I could use it and better understand it 
             }
         }
         delete[] oldhash; //frees up the old backing store from the memory
