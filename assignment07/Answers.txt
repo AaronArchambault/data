@@ -1,0 +1,27 @@
+
+1. List 3 examples of a real-world queue.
+
+One is task scheduling, where operating systems use a queue to schedule tasks for todo. Tasks are added based on the task’s priority or order it was assigned and they are removed once they are completed, which follows the first in first out for the task of equal priority.
+
+Another one is that print jobs are added to the queue as users send documents to print. The printer processes jobs in the order they were received in like first in and first out, and each job is removed from the queue once printing is complete.
+
+Another one is web searches and request handling and how web servers use queues to manage incoming requests from users. The requests are added to the queue as they arrive and they are processed by the server in the order they are received.
+
+
+2. List 3 examples of a real-world stack.
+
+One is the undo/redo button/operation in an application like a word processor. With each action is pushed onto the stack, and pressing “undo” pops the most recent action off the stack, which follows the last in first out behavior.
+
+Another one is function call stack, with programming languages that use a call stack to track function execution. When a function is called, it’s pushed onto the stack with its local variables and return address when the function is done and it is popped off the stack, returning control to the calling function.
+
+Another one is the history of visited websites. The web browser maintains a stack of visited pages. When you navigate to a new page, it's pushed onto the stack. Clicking the back button pops the current page and returns to the previous one.
+
+3. If a piece of software passes all of its unit tests does it necessarily work correctly? Why or why not?
+
+If a piece of software passes all of its unit tests, that does not necessarily mean that it works correctly. The reason is for a handful of reasons, like a software unit test might not be coded correctly and may have errors, and pass code that does not necessarily work. Also, even if a software passes all of its unit tests, that just means that it passes all the things that it was testing for, which does not always mean that the software works, and it could have other problems that the unit tests just did not test or catch. The unit tests and passing them is less to say that the code works correctly, and is more of a safeguard that helps the developer test things about their software as they go. It is also possible to pass unit tests without the software necessarily working correctly. Like if your unit tests test if a function returns 0 or not, it is possible that the software returns 0, but it did not get it the way that it needed/should have to be considered to be working correctly.
+
+4. Why is a linked list better than a fixed-size array for implementing stacks and queues?
+
+The reason why a linked list is better than a fixed-sized array for implementing stacks and queues is that a linked list has dynamic size and it grows and shrinks dynamically without needing to know the maximum size in advance, while fixed-size arrays have a predetermined capacity that can be exceeded or waste memory if not fully used. Also, efficient operation of a linked list provides O(1) time complexity for insertion and deletions at the ends for stack and at both ends for queues. Arrays may require O(n) operations for queue dequeue operations or stack operations that are not implemented at the array’s end. With no resizing overhead, when a fixed-size array fills up it must allocate a noe larger array and copy all of the elements, which is O(n) operation and linked lists avoid this entirely. Also, linked lists are more memory efficient with them only using memory for elements that are actually stored, whereas  fixed-size arrays allocate memory for their entire capacity upfront, which potentially wastes space if it is not full.
+
+

@@ -217,7 +217,7 @@ namespace csi281 {
             {
             put(pair.first, pair.second);//use the put to put the first and second pairs in palce
             //put mainly came from a mix of initaiol me seeing it form an auto fill tab suggestion
-            //and then me looking it up to see what it does and how I could use it and better understand it 
+            //and then me looking it up to see what it does and how I could use it and better understand it
             }
         }
         delete[] oldhash; //frees up the old backing store from the memory

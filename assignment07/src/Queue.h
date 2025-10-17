@@ -6,6 +6,7 @@
 //  You may not add any instance variables to this class.
 //
 //  Copyright 2019 David Kopec
+//  Aaron Archambault
 //
 //  Permission is hereby granted, free of charge, to any person
 //  obtaining a copy of this software and associated documentation files
@@ -36,8 +37,44 @@ using namespace std;
 namespace csi281 {
   template <typename T> class Queue : public SequentialCollection<T> {
   public:
-    // YOUR CODE HERE
+    //pre: item has to be passed in
+    //post: the item is added to the back of the queue
+    //purpose: it adds the item that is passed in to the back of the queue
+    void push(const T &item) override
+    {
+      this->backingStore.push_back(item); //it pushed back the backingStore with item putting it at the back
+      //adds the item to the back of the backingStore queue
+    }
+
+    //pre: none but it throws an exception if the queue is empty
+    //post: the front item/element is removed from the queue and is returned
+    //purpose: to remove and return the element/item at the front of the queue
+    T pop() override
+    {
+      if (this->backingStore.empty()) //it tests if the queue/backingStore is empty and if it is then it thorws a runtime error
+      {
+        throw std::runtime_error("Can't push back into empty Queue"); //it throws a runtime error and prints/return
+        //Can't push back into empty Queue
+      }
+      T item = this->backingStore.front(); //it sets time to the front of backingStore to get the front element/item
+      this->backingStore.pop_front(); //it removes the front elemtn/item from the backingStore
+      return item; //it returns the removed item/element
+    }
+    //pre: none but it throws an exception if the queue is empty
+    //post: the queue remains the same, but the front of backingStore is returned
+    //purpose: it is to return a referance to the front element without removing/changing it
+    T& peek() override
+    {
+      if (this->backingStore.empty())//it tests if the queue/backingStore is empty and if it is then it thorws a runtime error
+        {
+        throw std::runtime_error("Can't peek into empty Queue"); //it throws a runtime error and prints/return
+        //Can't peek into empty Queue
+      }
+      return this->backingStore.front(); //returns a reference to the front element/item
+    }
+
   protected:
+    //brings in the backingStore form the parent class
     using SequentialCollection<T>::backingStore;
   };
 }  // namespace csi281
