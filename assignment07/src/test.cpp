@@ -142,6 +142,51 @@ TEST_CASE("Queue Tests", "[queue]") {
     REQUIRE(q2.getCount() == 3);
     REQUIRE(q2.peek() == "Third"); //test if the front is still third like it should be
   }
+
+  SECTION("Queue edge cases and error handling") {
+    Queue<int> q;
+
+    //it tests popping from empty queue throws exception
+    REQUIRE_THROWS_AS(q.pop(), std::runtime_error);
+
+    //it tests peeking into empty queue throws exception
+    REQUIRE_THROWS_AS(q.peek(), std::runtime_error);
+
+    //it tests removing from empty queue and it should not throw
+    q.remove(10);
+    REQUIRE(q.getCount() == 0);
+
+    //it tests removing non-existent element in the queue
+    q.push(5);
+    q.push(10);
+    q.push(15);
+    q.remove(100);  //it checks if the element doe not exist
+    REQUIRE(q.getCount() == 3);  //checks to see if the count is unchanged
+
+    //it tests removing all elements leaves the queue working
+    q.remove(5);
+    q.remove(10);
+    q.remove(15);
+    REQUIRE(q.getCount() == 0);
+    q.push(20);  //test/checks that it should still work
+    REQUIRE(q.getCount() == 1);
+    REQUIRE(q.peek() == 20);
+  }
+
+  SECTION("Queue debugPrint test") {
+    Queue<int> q;
+
+    //it checks/tests debugPrint on empty queue it should work
+    cout << "Empty queue debug print: ";
+    q.debugPrint();
+
+    //it tests the debugPrint with elements in the queue
+    q.push(1);
+    q.push(2);
+    q.push(3);
+    cout << "Queue with elements debug print: ";
+    q.debugPrint();
+  }
 }
 
 TEST_CASE("Stack Tests", "[stack]") {
@@ -245,6 +290,50 @@ TEST_CASE("Stack Tests", "[stack]") {
     s2.push("New Guy");
     REQUIRE(s2.getCount() == 3);
     REQUIRE(s2.peek() == "New Guy"); //it tests if the top is new guy like it should be
+  }
 
+  SECTION("Stack edge cases and error handling") {
+    Stack<int> s;
+
+    //it tests popping from empty stack throws exception
+    REQUIRE_THROWS_AS(s.pop(), std::runtime_error);
+
+    //it tests peeking into an empty stack throws an exception
+    REQUIRE_THROWS_AS(s.peek(), std::runtime_error);
+
+    //it checks/tests removing from empty stack should not throw
+    s.remove(10);
+    REQUIRE(s.getCount() == 0);
+
+    //it tests removing non-existent element
+    s.push(5);
+    s.push(10);
+    s.push(15);
+    s.remove(100);  //tests if element doesn't exist
+    REQUIRE(s.getCount() == 3);  //checks to see if the count is unchanged
+
+    //it tests removing all elements leaves the stack working
+    s.remove(5);
+    s.remove(10);
+    s.remove(15);
+    REQUIRE(s.getCount() == 0);
+    s.push(20);  //cheks if it should still work
+    REQUIRE(s.getCount() == 1);
+    REQUIRE(s.peek() == 20);
+  }
+
+  SECTION("Stack debugPrint test") {
+    Stack<int> s;
+
+    //it tests the debugPrint on empty stack shoudl work fine
+    cout << "Empty stack debug print: ";
+    s.debugPrint();
+
+    //it tests the debugPrint with elements
+    s.push(1);
+    s.push(2);
+    s.push(3);
+    cout << "Stack with elements debug print: ";
+    s.debugPrint();
   }
 }
