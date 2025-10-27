@@ -1,0 +1,34 @@
+Robert(Aaron) Archambault
+Please write your answers in a file called "answers.txt" with your name
+at the top in this repository. Please number each answer.
+
+
+1. What is faster to find an answer given the same graph, same start node, and same goal node: breadth-first search, depth-first search, or "it depends"? Explain why.
+
+
+It depends when it comes to what is faster to find an answer given the same graph, same start node, and same goal node. The reason is that the speed depends on where the goal node is located on/in the graph relative to the start node. Breadth-First Search explores nodes level by level so it is faster when the goal is closer to the start node or is more shallow in the graph or tree. With that Breadth-First Search is guaranteed to find the shortest path.
+Depth-First Search explores as far as possible along each branch before backtracking, so it can be faster when the goal happens to be down the first path that is explored. That being said it may waste time if it is going very deep into the wrong branch/branches.
+So if the goal is on a shallow level Breadth-First Search is typically faster. If the goal happens to be on the path Depth-First Search explores first it could be faster. If the goal is deep and Depth-First Search explores the wrong branch then it could be much slower.
+So in the end it is hard to say for sure, which would be faster, especially without knowing the structure of the graph and location of the goal, I can not with confidence say which is faster and only that it depends.
+
+
+2. What is the worst case (Big-O) runtime of breadth-first search? Explain why.
+
+
+The worst case (Big-O) runtime of breadth-first search is O(V + E) where V is the number of vertices and E is the number of edges. The reason why the worst case (Big-O) runtime of breadth-first search is O(V + E) is that in the worst case breadth-first search has to visit every vertex and examine every edge. With visiting vertices breadth-first search visits each vertex exactly once, which takes O(V) time. Then examining edges, for each vertex visited, breadth-first search will examine all of its adjacent edges. Across all vertices, this means examining each edge once for directed graphs or twice for undirected graphs. This combines to be O(V + E) and in the worst case, the goal node is the last node discovered, or the goal does not exist at all, which requires the breadth-first search to explore the entire graph.
+
+
+3. Why would an adjacency matrix be less memory efficient than an adjacency list for storing a social graph of friends, like part of Facebook?
+
+
+The reason why an adjacency matrix would be less memory efficient than an adjacency list for storing a social graph of friends. Like part of Facebook is that an adjacency matrix is less memory efficient because the social graphs are sparse. The reason why is that adjacency matrix, use O(V^2) space, where V is the number of vertices or users in this case. It stores a value for every possible pair of users, whether they are friends or not. With an adjacency list, uses O(V + E) space, where E is the number of edges or friendships in this case. It only stores the actual friendships.
+So for a social network like Facebook, if there are 1 billion users (V = 1 billion), an adjacency matrix would need space for 1 billion times 1 billion = 10^18 entries. But the average Facebook user only has a few hundred friends, which is very small E compared to V^2. This means E << V^2, making the graph “sparse”.
+An example is with 1000 users where each has 50 friends. The adjacency matrix would be 1000 times 1000 = 1,000,000 entries, and an adjacency list with 1000 users + 50,000 friendships is around 51,000 entries. This shows that adjacency lists are much more efficient for sparse graphs like social networks.
+
+
+4. Give an example of depth-first search in the real world (not on a computer).
+An example of depth-first search in the real world is exploring pretty much any maze, but to pick one a corn maze is a good example. The reason why exploring a corn maze is an example of depth-first search in the real world is that when you are in a maze and follow this strategy of choose a path at an interaction, follow that path as far as possible until you hit a dead end or the exit, when you hit a dead end you backtrack to the last intersection, try a different path from that intersection, and repeat until you find the exit. That is pretty much exactly how depth-first search works, with you going as deep as possible into one path before backtracking and trying other options.
+
+
+
+
