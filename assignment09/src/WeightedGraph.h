@@ -6,6 +6,7 @@
 //  You should not add any additional methods to this class.
 //
 //  Copyright 2019 David Kopec
+//  Aaron Archambault
 //
 //  Permission is hereby granted, free of charge, to any person
 //  obtaining a copy of this software and associated documentation files
@@ -37,6 +38,7 @@
 #include <unordered_set>
 #include <utility>
 #include <vector>
+#include <assert.h>
 
 #include "MemoryLeakDetector.h"
 
@@ -139,6 +141,35 @@ namespace csi281 {
       // from class, from your book, and you are free to
       // use other pseudocode as long as you cite it. Please
       // do not look at other C++ solutions.
+
+      while (!frontier.empty()) //it loops until the forontier is not empty and that makes it keep going unitll it has reachaed
+        //all reacahbled vertieces and all of them have been explored
+        {
+        //it gets the verxet with the smallest cumulative weight
+        const V currentVertex = frontier.top().second; //gets the vertex of the second element
+        const W currentWeight = frontier.top().first; //gets the weight of the first element
+        frontier.pop(); //pops the frontier
+
+        for (const auto &neighbor : neighborsWithWeights(currentVertex)) //it loops throguh the neighbors
+        //so it loops and looks at all of the neighbors of the current vertex
+          {
+          const V neighborVert = neighbor.first; //gets the vertex of the neighbor
+          const W edgeWeight = neighbor.second; //gets the weight of the edge to the neighbor
+          const W weight = currentWeight + edgeWeight; //it gets/calcualtes the total weight to reach the neighbor and it does that
+          //by adding the curentWeight plus the edgeWeight
+
+          if (weights.find(neighborVert) == weights.end() || weight < weights[neighborVert]) //it tests/checks if this new vertex is new
+            //or if it has found the shorter path to it
+            {
+            parents[neighborVert] = currentVertex; //it takes not of/sets the perent and index neighborvert to the currerntvertex to store it and
+            //how it got there
+            weights[neighborVert] = weight; //it sets weights at index neighborvert to be the value of weight to keep note/store the
+            //sortest distance
+            frontier.push(make_pair(weight, neighborVert)); //it adds a frontier for exploration
+          }
+        }
+      }
+
 
       return make_pair(parents, weights);
     }

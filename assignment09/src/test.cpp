@@ -5,6 +5,7 @@
 //  You SHOULD modify the end of this file, adding your own test case.
 //
 //  Copyright 2019 David Kopec
+//  Aaron Archambault
 //
 //  Permission is hereby granted, free of charge, to any person
 //  obtaining a copy of this software and associated documentation files
@@ -171,6 +172,73 @@ TEST_CASE("dijkstra() cityGraph2 Test", "[dijksta]") {
   }
 }
 
+TEST_CASE("My Dijkstra Tests", "Hiking Trail Test")
+{
+  //creates tge weighed graph that will be of made up hiking trails
+  WeightedGraph<string, int> trailGraph = WeightedGraph<string, int>();
+
+  //adding all of the edges with the trials and reperensting their conections of each trail
+  trailGraph.addEdge("TrailHead", "SumitA", 7);
+  trailGraph.addEdge("TrailHead", "PeakTrail", 3);
+  trailGraph.addEdge("PeakTrail", "SumitA", 4);
+  trailGraph.addEdge("PeakTrail", "PineField", 9);
+  trailGraph.addEdge("DeadManTrail", "PineField", 20);
+  trailGraph.addEdge("DeadManTrail", "SumitA", 7);
+  trailGraph.addEdge("SumitA", "SumitB", 10);
+  trailGraph.addEdge("SumitB", "PeakTrail", 7);
+  trailGraph.addEdge("PineField", "SumitB", 9);
+  trailGraph.addEdge("PineField", "Cabin", 8);
+  trailGraph.addEdge("Cabin", "PeakTrail", 5);
+
+  cout << "------Trail Graph-----" << endl;
+  trailGraph.debugPrint();
+
+  //test/checks the path form trailHead
+  auto resultPair = trailGraph.dijkstra("TrailHead");//tests the result pair with the dijksta with trailHead
+  auto parentResults = resultPair.first; //gets the parent result with the result pair.first
+  auto weightResults = resultPair.second; //gets the weight result with the reultpart.second
+
+  //it check the sortest disances form the trialHead
+  CHECK(weightResults["TrailHead"] == 0);
+  CHECK(weightResults["PeakTrail"] == 3);
+  CHECK(weightResults["SumitA"] == 7);  // Direct path to the sumit A
+  CHECK(weightResults["SumitB"] == 10); // test path from PeakTrail
+  CHECK(weightResults["Cabin"] == 8);   // test path from  PeakTrail
+  CHECK(weightResults["PineField"] == 12); // test path from PeakTrail
+
+  //tests/checks the path to SumitB
+  auto pathToSumitB = trailGraph.pathMapToPath(parentResults, "SumitB");
+
+  cout << "----Path To SumitB----" << endl;
+  printPath(pathToSumitB);
+
+  //checks to see if the path is correct and should be TrailHead, PeakTrail, SumitB
+  CHECK(pathToSumitB.size() == 3);
+  CHECK(pathToSumitB.front() == "TrailHead");
+  CHECK(pathToSumitB.back() == "SumitB");
+
+  // Verify all edges in the path exist
+  auto it = pathToSumitB.begin();
+  auto last = pathToSumitB.front();
+  for (unsigned long i = 1; i < pathToSumitB.size(); i++) {
+    it++;
+    auto current = *it;
+    CHECK(trailGraph.edgeExists(last, current));
+    last = current;
+  }
+
+  //tests it from a differnt stating point the cabin
+  auto resultPair2 = trailGraph.dijkstra("Cabin");
+  auto weightResults2 = resultPair2.second;
+
+  CHECK(weightResults2["Cabin"] == 0);
+  CHECK(weightResults2["PeakTrail"] == 5);
+  CHECK(weightResults2["TrailHead"] == 8);
+  CHECK(weightResults2["SumitA"] == 9);
+  CHECK(weightResults2["PineField"] == 8);
+
+
+}
 // YOUR CODE HERE
 // ADD YOUR OWN TEST CASE
 // Prove that dijkstra() works correctly in your own test case,
