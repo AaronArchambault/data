@@ -239,7 +239,6 @@ TEST_CASE("My Dijkstra Tests", "Hiking Trail Test")
 
 
 }
-// YOUR CODE HERE
 // ADD YOUR OWN TEST CASE
 // Prove that dijkstra() works correctly in your own test case,
 // using the methods of WeightedGraph.
