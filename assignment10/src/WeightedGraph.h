@@ -6,6 +6,7 @@
 //  You should not add any additional methods to this class.
 //
 //  Copyright 2019 David Kopec
+//  Aaron Archambault
 //
 //  Permission is hereby granted, free of charge, to any person
 //  obtaining a copy of this software and associated documentation files
@@ -37,6 +38,7 @@
 #include <unordered_set>
 #include <utility>
 #include <vector>
+#include <assert.h>
 
 #include "MemoryLeakDetector.h"
 
@@ -128,9 +130,39 @@ namespace csi281 {
       // this aligns with the inner function visit() from the pseudo code in the slides
       auto visit = [&](V v) {
         // YOUR CODE HERE
+        //it marks this vertex as visited
+        visited.insert(v);
+
+        //it loops to add all of the edges that lead to unvistied veritces
+        for (auto &edge : neighborsWithWeights(v))
+        {
+          //it tests that if that it only adds edges that lead to unvisited vertices
+          if (visited.find(edge.to) == visited.end())
+            {
+            frontier.push(edge);
+            }
+        }
       };
 
       // YOUR CODE HERE
+      //it starts by visiting the starting vertex
+      visit(start);
+
+      //it loops while/until it has gone throguh/processed all the edges in the frontier
+      while (!frontier.empty())
+      {
+        WeightedEdge currentEdge = frontier.top();
+        frontier.pop();
+
+        //it tests if it has nit visited the destination vertex yet
+        if (visited.find(currentEdge.to) == visited.end())
+        {
+          //it adds this edge to to our MST
+          solution.push_back(currentEdge);
+          //it visits the destination vertex
+          visit(currentEdge.to);
+        }
+      }
 
       return solution;
     }
