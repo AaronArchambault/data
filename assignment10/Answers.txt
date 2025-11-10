@@ -1,29 +1,29 @@
 Aaron Archambault
 
 Feel free to do online research to answer these questions. But if you do, be sure to cite your source with your answer. A URL is sufficient.
-I will add that some of the links I used and others I read over, but were also the link that the AI overview game me
+I will add that some of the links I used and others I read over, but were also the links that the AI overview game me
 
 1. How can Jarnik's algorithm be re-configured to find the maximum-spanning-tree instead of the minimum-spanning-tree?
 
 
-How the Jarnik’s algorithm can be re-configured to find the maxim-spanning-tree instead of the minimum-spanning-tree is that you need to reverse the priority queue ordering. Instead of using a min-priority queue that selects the edges with the smallest weights, use a max-priority queue that selects the edges with the largest weights.
+How Jarnik’s algorithm can be re-configured to find the maxim-spanning-tree instead of the minimum-spanning-tree is that you need to reverse the priority queue ordering. Instead of using a min-priority queue that selects the edges with the smallest weights, use a max-priority queue that selects the edges with the largest weights.
 
 
-2. How is a minimum-spanning-tree different from a solution to The Traveling Salesman problem?
+2. How is a minimum spanning tree different from a solution to The Traveling Salesman problem?
 
 
 How a minimum-spanning-tree is different for a solution to the traveling salesman problem is that a minimum spanning tree finds the minimum total weight connecting all vertices with edges, the results in a tree structure is n-1 edges for n vertices, each vertex is visited exactly once with no cycles, it does not return to the starting vertex, it can be solved efficiently in polynomial time of O(E logV) with priority queue, and it focus on connectivity with minum total edges.
 
 
-The Traveling salesman problem finds the minimum total weight path that visits all vertices and returns to the start, it results in a cycle/circuit n edged for n vertices, it must/has to return the starting vertex, it has no known polynomial-time solution for optimal answer, it focus on finding a hamiltonian cycle with minimum total weight.
+The Traveling salesman problem finds the minimum total weight path that visits all vertices and returns to the start. It results in a cycle/circuit n-edged for n vertices, it must/has to return the starting vertex, it has no known polynomial-time solution for an optimal answer, it focuses on finding a hamiltonian cycle with minimum total weight.
 
 
-So the minimum spanning tree connects all the vertices with minimum total edge cost, while the traveling salesman problem finds a minimum-cost tour that visits all vertices and returns home
+So the minimum spanning tree connects all the vertices with minimum total edge cost, while the traveling salesman problem finds a minimum-cost tour that visits all the vertices and returns home
 
 https://plato.stanford.edu/entries/computational-complexity/
 https://en.wikipedia.org/wiki/Computational_complexity_theory
 
-3. Rewrite 5 vertices from the weighted graph cityGraph2 from test.cpp in adjacency matrix form. You can enter a text table yourself in your answers file, or copy and paste a text table from https://www.tablesgenerator.com/text_tables or add an additional image/spreadsheet file to your repository or put a link in question 3 to a Google Sheet. It's your call.
+3. Rewrite 5 vertices from the weighted graph cityGraph2 from test.cpp in adjacency matrix form. You can enter a text table yourself in your answers file, or copy and paste a text table from https://www.tablesgenerator.com/text_tables, or add an additional image/spreadsheet file to your repository, or put a link in question 3 to a Google Sheet. It's your call.
 
 https://docs.google.com/spreadsheets/d/1I0_urrhh6cJucCDQxJafjUYmLjlqiIiouh6WKZw_g3w/edit?usp=sharing
 
@@ -81,10 +81,10 @@ Edges represent:
 4. What is the Big-O time complexity of Jarnik's algorithm when a priority queue (binary heap) is used? What about when it is not used? Why is there a difference?
 
 
-The Big-O time complexity of jarnik’s algorithm when a priority queue (binary heap) is used is O(E log V) and each edge is considered at most once O(E) operation. Each operation involves a priority queue insert/decreas-key/extract-min. Binary heap operation takes O(log V. without priority queue/using liner search the time complexity is O(V^2). This is because for each of the V vertices added to the minimum spanning tree, and it must scan through all V vertices to find the minimum weight edge which totals to be O(V^2).
+The Big-O time complexity of Jarnik’s algorithm when a priority queue (binary heap) is used is O(E log V), and each edge is considered at most once O(E) operation. Each operation involves a priority queue insert/decreas-key/extract-min. Binary heap operation takes O(log V. Without a priority queue/using linear search, the time complexity is O(V^2). This is because for each of the V vertices added to the minimum spanning tree, it must scan through all V vertices to find the minimum weight edge, which totals to O(V^2).
 
 
-The reason why they are different is that the priority queue provides efficient access to the minimum-weight edge, connecting the current tree to a new vertex. Without it, it has to perform a linear search through all candidates each time. So when E is much less that V^2 (sparse Graphs), O(E log V) is better. When E approaches V^2 (dense Graphs) O(V^2) may be comparable or better since log V overhead is eliminated.
+The reason why they are different is that the priority queue provides efficient access to the minimum-weight edge, connecting the current tree to a new vertex. Without it, it has to perform a linear search through all candidates each time. So when E is much less than V^2 (sparse Graphs), O(E log V) is better. When E approaches V^2 (dense Graphs), O(V^2) may be comparable or better since log V overhead is eliminated.
 
 
 The priority queue trades space for time, maintaining a heap structure that allows fast minimum extraction at the cost of maintaining the heap invariant.
@@ -96,20 +96,20 @@ https://en.wikipedia.org/wiki/Prim%27s_algorithm#Time_complexity
 5. Why is Jarnik's algorithm a greedy algorithm?
 
 
-The reason why the Jarnik’s algorithm is a greedy algorithm is that it makes locally optimal choices at each step without reconsidering previous decisions. So at each iteration, it selects the minimum-weight edge that connects a vertex in the current tree to a vertex outside the tree. With this choice is made greedily, it picks the best option available at that moment without looking ahead to see if a different choice might lead to a better overall solution. So once an edge is added to the minimum spanning tree, it is never removed or reconsidered. Even thought it being greedy, Jarnik's algorithm is optimal for a minimum spanning tree because the greedy choice property and optimal substrate hold for this problem. The cut property of minimum spanning tree guarantees that the minimum-weight edge crossing any cut must be in some minimum spanning tree, which validates the greedy approach.
+The reason why Jarnik’s algorithm is a greedy algorithm is that it makes locally optimal choices at each step without reconsidering previous decisions. So at each iteration, it selects the minimum-weight edge that connects a vertex in the current tree to a vertex outside the tree. With this choice made greedily, it picks the best option available at that moment without looking ahead to see if a different choice might lead to a better overall solution. So once an edge is added to the minimum spanning tree, it is never removed or reconsidered. Even though it is greedy, Jarnik's algorithm is optimal for a minimum spanning tree because the greedy choice property and optimal substrate hold for this problem. The cut property of a minimum spanning tree guarantees that the minimum-weight edge crossing any cut must be in some minimum spanning tree, which validates the greedy approach.
 
 
-This is in contrast to problems like the traveling salesman problem where greedy approaches like nearest neighbor do not guarantee optimal solutions.
+This is in contrast to problems like the traveling salesman problem, where greedy approaches like nearest neighbor do not guarantee optimal solutions.
 
 https://courses.cs.duke.edu/fall01/cps230/Notes/Notes-Greedy.pdf
 
 
-6. Jarnik's algorithm is commonly known as Prim's algorithm, even though Jarnik discovered it and published it decades before Prim rediscovered it. Research another algorithm that has a different common name from its original discoverer. What is the purpose of the algorithm and why did its original creator not get credit?
+6. Jarnik's algorithm is commonly known as Prim's algorithm, even though Jarnik discovered it and published it decades before Prim rediscovered it. Research another algorithm that has a different common name from its original discoverer. What is the purpose of the algorithm, and why did its original creator not get credit?
 
 
-Another example is the Dikstra Algorithm also known as the Bellman-Ford special case or Stingler’s Law of Eponymy, which paradoxically was not discovered by Stigler. The Bellman-Ford Algorithm’s history is that Alfonso Shimbel published the algorithm in 1955, Richard Bellman published it in 1958, and Lester Ford Jr. published it independently in 1956. The algorithm is commonly called the “Bellman-Ford algorithm” despite Shimbel’s earlier work.
-The purpose of the algorithm is to find the shortest paths from a single source vertex to all other vertices in a weighted directed graph, even with negative edge weights unlike Dijkstra’s.
-The Reason why Shimbel did not get credit are that language/publication venue, Shimbel’s work may have been less accessible or in a less prominent venue, Bellman and Ford provided more complete analysis and popularized the algorithm, historically bias towards certain researchers/institutions, Bellman and Ford’s versions included more rigorous proofs and applications , and network effects with once an algorithm gets associated with certain names it tends to stick.
+Another example is the Dijkstra Algorithm, also known as the Bellman-Ford special case or Stigler’s Law of Eponymy, which paradoxically was not discovered by Stigler. The Bellman-Ford Algorithm’s history is that Alfonso Shimbel published the algorithm in 1955, Richard Bellman published it in 1958, and Lester Ford Jr. published it independently in 1956. The algorithm is commonly called the “Bellman-Ford algorithm” despite Shimbel’s earlier work.
+The purpose of the algorithm is to find the shortest paths from a single source vertex to all other vertices in a weighted directed graph, even with negative edge weights, unlike Dijkstra’s.
+The Reason why Shimbel did not get credit are that language/publication venue, Shimbel’s work may have been less accessible or in a less prominent venue, Bellman and Ford provided more complete analysis and popularized the algorithm, historically bias towards certain researchers/institutions, Bellman and Ford’s versions included more rigorous proofs and applications, and network effects with once an algorithm gets associated with certain names it tends to stick.
 
 
 https://en.wikipedia.org/wiki/Bellman%E2%80%93Ford_algorithm
