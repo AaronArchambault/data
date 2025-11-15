@@ -9,6 +9,7 @@
 //  any additional utility functions.
 //
 //  Copyright 2019 David Kopec
+//  Aaron Archambault
 //
 //  Permission is hereby granted, free of charge, to any person
 //  obtaining a copy of this software and associated documentation files
@@ -59,6 +60,11 @@ namespace csi281 {
     // NOTE: Our heap starts at 0, not 1
     T peek() {
       // YOUR CODE HERE
+      if (heap.size() == 0) //it checks if the heaps size is 0 and if it is it throws a runtime error
+      {
+        throw std::runtime_error("empty Priority queue");
+      }
+      return heap[0];//the max element is/should always be at the root and it returns the heap at index 0
     }
 
     // Remove the next element (max element) in the heap and return it
@@ -69,6 +75,19 @@ namespace csi281 {
     // after a pop.
     T pop() {
       // YOUR CODE HERE
+      if (heap.size() == 0) //it checks if the heap size is 0 and if it is then it throws a runtime error
+      {
+        throw std::runtime_error("empty Priority queue");
+      }
+
+      T max = heap[0]; //it saves the max element by setting max to be the value of heap at index 0
+      heap[0] = heap[heapSize - 1];//it moves to the last element to root by setting the heap at index 0 to be the value of
+      //the heap at index of the heapsize - 1
+      heapSize--; //it decreased the heap size by one
+      maxHeapify(0); //restores the max-heap property
+
+      return max; //returns the max
+
     }
 
     // Put a new element into the priority queue
@@ -81,6 +100,19 @@ namespace csi281 {
     // the end of the vector heap
     void push(T key) {
       // YOUR CODE HERE
+      heap.push_back(key); //add to the end of the vector by calling push back on the heap and pushing back the key
+      heapSize++; //it increases the size by 1
+
+      int i = heapSize - 1; //it makes the index of the newly added elements by setting i to the value of heapsize - 1
+
+      //it floats the element up to maintain the max-heap property
+      while (i > 0 && heap[parent(i)] < heap[i]) //it loops while i it grater than 0 and heap at parent(i) index is less than
+        //heap at index i and everytime it loops it swaps the heap at index i and the heap at parent(i) and then sets
+          //i to be the value of parent(i)
+        {
+        swap(heap[i], heap[parent(i)]);//it swaps the heap at index i and the heap at parent(i)
+        i = parent(i); //sets i to be the value of parent(i)
+      }
     }
 
     // How many items are in the priority queue?
@@ -100,6 +132,31 @@ namespace csi281 {
     // NOTE: Macros left() and right() are defined at the top of this file
     void maxHeapify(int i) {
       // YOUR CODE HERE
+      int lefts = left(i); //it create a varerable for the left and it sets it to be the vlaue of left(i)
+      int rights = right(i); ///it create a varerable for the right and sets it to be the value of right(i)
+      int largest = i; ///it create a varerable for the largest and it sets it to the vlaue of i
+
+      //it finds the largets among the node, left cilde and the right child
+      if (lefts < heapSize && heap[lefts] > heap[largest]) //it checks if the lefts is less than the heapsize and if the
+        //heap at index lefts is grater than the largest and if that is true it sets the lagest to be the value of lefts
+      {
+        largest = lefts; //sets the largest to be the value of lefts
+      }
+      if (rights < heapSize && heap[rights] > heap[largest]) //it checks to see if the rights is less than the heap size and
+        //if the heap at index rights is grater than the heap at the largest index and if that is true then it sets the largest
+          //to be the value of the rights
+      {
+        largest = rights; //sets largest to the value of rights
+      }
+
+      //it checks if the largest is not the current node, and it swpas and recuses
+      if (largest != i) //it checks if the largest is not the same as the i and if that is true then it swaps the heap at
+        //index i and the heap at the index largest and then it calls max heapifty and passes in largest
+      {
+        swap(heap[i], heap[largest]); //swaps the heap at index i and the heap at index largest
+        maxHeapify(largest); //calls the maxHeapify and passes in the largest
+      }
+
     }
 
     vector<T> heap;
